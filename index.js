@@ -1,22 +1,20 @@
-const { REST, Routes } = require('discord.js');
+const Discord = require('discord.js');
+var http = require('http');
 
-const commands = [
-  {
-    name: 'ping',
-    description: 'Replies with Pong!',
-  },
-]; 
+const { Client, GatewayIntentBits, Partials } = require('discord.js');
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent], partials: [Partials.Channel] });
 
-const rest = new REST({ version: '10' }).setToken(TOKEN);
+const token = 'MTA0Nzk0MDM1Njg1NzE1NTYzNA.GocpkA.bOvk1eR90neKLyfLlrJ3QVqJI4YsT5C35BQt7A'
 
-(async () => {
-  try {
-    console.log('Started refreshing application (/) commands.');
+client.once('ready', () => {
+  console.log('ready pour les polypotes');
+});
 
-    await rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands });
+client.login(token);
 
-    console.log('Successfully reloaded application (/) commands.');
-  } catch (error) {
-    console.error(error);
-  }
-})();
+client.on("messageCreate", (message) => {
+  if (message.author.bot == false && message.content == 'change le thème') {
+    message.channel.send('Je change le thème');
+    console.log("Chgt_thm");
+
+});
