@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 var http = require('http');
+var XMLHttpRequest = require('xhr2');
 
 const { Client, GatewayIntentBits, Partials } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent], partials: [Partials.Channel] });
@@ -16,5 +17,17 @@ client.on("messageCreate", (message) => {
   if (message.author.bot == false && message.content == 'change le thème') {
     message.channel.send('Je change le thème');
     console.log("Chgt_thm");
-
+    const Http = new XMLHttpRequest();
+    const url=' http://polypotes.alwaysdata.net/api';
+    Http.open("POST", url);
+    Http.send("Chgt_thm");
+    
+    Http.onreadystatechange = (e) => {
+      console.log(Http.responseText)
+    }
+  }
+  if (message.author.bot == false && message.content == '!help') {
+    message.channel.send('Voici les instructions disponibles sur le Polybot :');
+    message.channel.send('change le thème --> permet de changer le thème');
+  }
 });
