@@ -18,16 +18,22 @@ client.on("messageCreate", (message) => {
     message.channel.send('Je change le thème');
     console.log("Chgt_thm");
     const Http = new XMLHttpRequest();
-    const url=' http://polypotes.alwaysdata.net/api';
+    const url=' http://polypotes.alwaysdata.net/api/changetheme';
     Http.open("POST", url);
     Http.send("Chgt_thm");
     
     Http.onreadystatechange = (e) => {
-      console.log(Http.responseText)
+      if (Http.responseText) {
+        console.log(Http.responseText)
+        message.reply(Http.responseText)
+      }
+
     }
   }
   if (message.author.bot == false && message.content == '!help') {
-    message.channel.send('Voici les instructions disponibles sur le Polybot :');
-    message.channel.send('change le thème --> permet de changer le thème');
+    message.reply('Voici les instructions disponibles sur le Polybot :');
+    message.reply('change le thème --> permet de changer le thème');
   }
+
+  
 });
